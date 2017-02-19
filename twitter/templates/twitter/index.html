@@ -1,9 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-{% csrf_token %}
-<form action="{% url 'twitter:signup' %}" method="get" accept-charset="utf-8">
-	<dt>make new account:
-	<dd><input type="submit" value="make account">
-	</form>
-</form>
-{% endblock %}
+{%if latest_tweet_list%}
+{%for tweet in latest_tweet_list%}
+    <li><a href="{%url 'tweet:detail'%}">
+    {{tweet.tweet}}</a>
