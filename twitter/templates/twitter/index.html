@@ -1,8 +1,9 @@
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>toppage</title>
-</head>
-<body>
-	<p>sucsess</p>
-</body>
+{% extends "layout.html" %}
+{% block body %}
+{% csrf_token %}
+<form action="{% url 'twitter:signup' %}" method="get" accept-charset="utf-8">
+	<dt>make new account:
+	<dd><input type="submit" value="make account">
+	</form>
+</form>
+{% endblock %}
