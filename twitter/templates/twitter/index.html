@@ -1,6 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
+
 {%if latest_tweet_list%}
-{%for tweet in latest_tweet_list%}
-    <li><a href="{%url 'tweet:detail'%}">
-    {{tweet.tweet}}</a>
+{% csrf_token %}
+    {%for tweet in latest_tweet_list%}
+        <li>
+        {{ tweet.text }}</a></li>
+        {% endfor %}
+{% else %}
+  <p>No polls are available.</p>
+{% endif %}
+      
+{% endblock %}

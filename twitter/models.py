@@ -1,10 +1,29 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractBaseUser, BaseUserManager
 from django.db import models
-# class MyUser(User):
 
-# 	def add_user(name, password):
-# 		new_user=User(name=name,  password=password)
-# 		new_user.save()
+class MyUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not username:
+            raise ValueError('Users must have an username')
+        email = RacchaiUserManager.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password):
+        return self.create_user(email, password)
+
+class MyUser(AbstractBaseUser):
+    name = models.CharField(max_length=12, unique=True)
+    image = models.ImageField(upload_to='images/')
+    USERNAME_FIELD = 'name'
+
+    objects = MyUserManager()
+
+    class Meta:
+        db_table = 'racchai_user'
+        swappable = 'AUTH_USER_MODEL'
 
 class Tweet(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
