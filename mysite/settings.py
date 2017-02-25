@@ -124,3 +124,9 @@ LOGIN_URL='twitter:login'
 
 LOGIN_REDIRECT_URL='twitter:index'
 
+#AUTH_USER_MODEL = 'twitter.MyUser'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+# AUTHENTICATION_BACKENDS = ('apps.accounts.auth.CustomAuth')
+

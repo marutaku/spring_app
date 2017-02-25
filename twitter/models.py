@@ -1,36 +1,22 @@
-from django.contrib.auth.models import User, AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.contrib.auth.models import User
 
-class MyUserManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
-        if not username:
-            raise ValueError('Users must have an username')
-        email = RacchaiUserManager.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
 
-    def create_superuser(self, email, password):
-        return self.create_user(email, password)
-
-class MyUser(AbstractBaseUser):
-    name = models.CharField(max_length=12, unique=True)
-    image = models.ImageField(upload_to='images/')
-    USERNAME_FIELD = 'name'
-
-    objects = MyUserManager()
-
-    class Meta:
-        db_table = 'racchai_user'
-        swappable = 'AUTH_USER_MODEL'
+class MyUser(models.Model): 
+    image = models.ImageField(upload_to='user_images', blank=True)
+    profile = models.CharField(max_length=100)
+    user = models.OneToOneField(User)
+    def __str__(self):
+        return self.name
+    
 
 class Tweet(models.Model):
-	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	text = models.TextField(max_length=144)
-	time = models.DateTimeField('date published')
-	def __str__(self):
-		return self.text
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    text = models.TextField(max_length=144)
+    time = models.DateTimeField('date published')
+    def __str__(self):
+        return self.text, self.user
 
 
 # Create your models here.
