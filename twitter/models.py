@@ -8,11 +8,11 @@ class MyUser(models.Model):
     profile = models.CharField(max_length=100)
     user = models.OneToOneField(User)
     def __str__(self):
-        return self.name
+        return self.user
     
 
 class Tweet(models.Model):
-    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField(max_length=144)
     time = models.DateTimeField('date published')
     def __str__(self):

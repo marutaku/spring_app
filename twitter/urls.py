@@ -8,5 +8,7 @@ urlpatterns = [
     url(r'^signup/$', views.regist_user, name='signup'),
     url(r'^signup/thanks/$', views.login, name='thanks'),
     url(r'^index/$', views.IndexView.as_view(), name='index'),
-    url(r'^logout/$', logout, name='logout')
+    url(r'^logout/$', logout, name='logout'),
+    url(r'^index/add$', views.tweet_add, name='add'),
+    url(r'^index/(?P<pk>[0-9]+)$', views.DetailView.as_view(), name='detail')
     ]

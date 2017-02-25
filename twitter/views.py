@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .models import Tweet
 from .form import MakeUserForm, LoginForm, ProfileForm
+from django.utils import timezone
 
 def regist_user(request):
     user_form = MakeUserForm(request.POST or None)
@@ -46,7 +47,17 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Tweet.objects.order_by('-time')[:50]
 
-# def tweet_add(request):
-#     tweeting = Tweet()
 
+def tweet_add(request):
+    user_now = request.user
+    tweeting = user_now.tweet_set.create(
+                text = request.POST["text"],
+                time = timezone.now(),)
+    tweeting.save()
+    return redirect("twitter:index")
+
+
+class DetailView(generic.DetailView):
+    model = Tweet
+    template_name = 'twitter/detail.html'
 
