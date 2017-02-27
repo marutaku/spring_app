@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
+{% load staticfiles%}
 {% block body %}
+<h1>{{user.username}}</h1>
 <form action="{% url 'twitter:add' %}" method=post >
 {% csrf_token %}
     <dl>
@@ -9,21 +11,30 @@
     </dl>
   </form>
 
-  <ul class=entries>
+
 {%if latest_tweet_list%}
 {% csrf_token %}
     {%for tweet in latest_tweet_list%}
         <li>
             <dl>
             <dt>
-            <a href="{% url 'twitter:detail' tweet.user.id%}">
-            {{tweet.user}}</a>
+            <img src="{% static tweet.user.myuser.image %}">
+            <a href="{% url 'twitter:detail' tweet.user.id %}">
+            {{ tweet.user }}</a>
             <dd>{{ tweet.text }}
+            {% if user.id == tweet.user.id %}
+            <form action="{% url 'twitter:delete' %}" method=post >
+            {% csrf_token %}
+            <input type=submit value=Delete>
+            <input type=hidden value="{{tweet.id}}" name="id">
+            <input type=hidden value="{{user.id}}" name="user">
+            </form>
+            {% endif %}
             </dl>
         </li>
     {% endfor %}
 {% else %}
   <p>No tweet are available.</p>
 {% endif %}
-      
+
 {% endblock %}

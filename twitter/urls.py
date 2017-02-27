@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^index/$', views.IndexView.as_view(), name='index'),
     url(r'^logout/$', logout, name='logout'),
     url(r'^index/add$', views.tweet_add, name='add'),
-    url(r'^index/(?P<pk>[0-9]+)$', views.DetailView.as_view(), name='detail')
+    url(r'^index/(?P<pk>[0-9]+)$', views.DetailView.as_view(), name='detail'),
+    url(r'^index/delete$', views.tweet_delete, name='delete')
     ]

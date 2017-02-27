@@ -1,17 +1,26 @@
+{% extends "layout.html" %}
+{% load staticfiles%}
+{% block body %}
 <h1>{{ user.username }}</h1>
+<h3>{{ user.myuser.profile }}
 
 {% if error_message %}
 <p><strong>{{ error_message }}</strong></p>
 {% endif %}
 
-
-{% for tweet in user.tweet_set.all %}
-        <li>
-            <a href="{% url 'twitter:detail' tweet.user.id %}">
-            {{tweet.user}}</a><br>
-            {{ tweet.text }}
-            </dl>
-        </li>
-{% endfor %}
+{% if user.tweet_set %}
+    {% for tweet in user.tweet_set.all %}
+            <li>
+                <img src="{% static tweet.user.myuser.image %}">
+                <a href="{% url 'twitter:detail' tweet.user.id %}">
+                {{tweet.user}}</a><br>
+                {{ tweet.text }}
+                </dl>
+            </li>
+    {% endfor %}
+{% else %}
+<h3>No Tweet abailable</h3>
+{% endif %}
 
 <h3><a href="{% url 'twitter:index' %}">戻る</h3>
+{% endblock %}
