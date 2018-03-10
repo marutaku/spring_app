@@ -25,7 +25,7 @@ SECRET_KEY = '&umgl(0r=x0+knza@4*4z!ndo#8m%ut+k%0&_pypdj&(z-^2k%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.33.10']
+ALLOWED_HOSTS = ['192.168.33.10','localhost', '127.0.0.1']
 
 
 # Application definition
