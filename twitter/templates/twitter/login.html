@@ -5,7 +5,7 @@
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
-<form method="post" action="{% url 'twitter:login' %}">
+<form method="post" action="{% url 'twitter:login' %}" class="form-group"">
 {% csrf_token %}
 <table>
 <tr>
@@ -18,7 +18,7 @@
 </tr>
 </table>
 
-<input type="submit" value="login" />
+<input type="submit" value="login" class="btn btn-primary">
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
 <form action="{% url 'twitter:signup' %}" method="get" accept-charset="utf-8">

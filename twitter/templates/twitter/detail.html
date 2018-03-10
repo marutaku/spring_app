@@ -2,16 +2,17 @@
 {% load staticfiles%}
 {% block body %}
 <h1>{{ user.username }}</h1>
-<h3>{{ user.myuser.profile }}
+<h3>{{ user.myuser.profile }}</h3>
 
 {% if error_message %}
 <p><strong>{{ error_message }}</strong></p>
 {% endif %}
 
+
 {% if user.tweet_set %}
     {% for tweet in user.tweet_set.all %}
             <li>
-                <img src="{% static tweet.user.myuser.image %}">
+                <img src="{% static tweet.user.myuser.image %}" width="70" height="70">
                 <a href="{% url 'twitter:detail' tweet.user.id %}">
                 {{tweet.user}}</a><br>
                 {{ tweet.text }}

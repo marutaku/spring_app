@@ -14,9 +14,11 @@ class MyUser(models.Model):
 class Tweet(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField(max_length=144)
+    fav = models.IntegerField(default=0)
     time = models.DateTimeField('date published')
     def __str__(self):
         return self.text, self.user
+
 
 
 # Create your models here.

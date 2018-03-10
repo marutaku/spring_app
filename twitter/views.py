@@ -61,6 +61,7 @@ class DetailView(generic.DetailView):
     model = User
     template_name = 'twitter/detail.html'
 
+
 def tweet_delete(request):
     tweet_id = request.POST["id"]
     target_tweet = Tweet.objects.get(pk=tweet_id)
@@ -70,4 +71,11 @@ def tweet_delete(request):
         target_tweet.delete()
     else:
         print("missmatch")
+    return redirect("twitter:index")
+
+def favorit_add(request):
+    tweet_id = request.POST["id"]
+    target_tweet = Tweet.objects.get(pk=tweet_id)
+    target_tweet.fav = target_tweet.fav + 1
+    target_tweet.save()
     return redirect("twitter:index")
